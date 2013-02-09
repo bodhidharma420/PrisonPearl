@@ -78,8 +78,25 @@ class PrisonPearlCommands implements CommandExecutor {
             return setMotdCmd(sender, args);           
         } else if (label.equalsIgnoreCase("ppfeed")) {
 			return feedCmd(sender, args, false);
+        } else if (label.equalsIgnoreCase("pprestore")) {
+        	return restoreCmd(sender, args, false);
         }
 		return false;
+	}
+	
+	private boolean restoreCmd(CommandSender sender, String args[], boolean any){
+    	if ((sender instanceof Player)) {
+			sender.sendMessage("Must use [[restore at the console");
+			return true;
+		}
+    	if (!args[0].isEmpty()){
+    		sender.sendMessage("Restoring from " + args[0]);
+    		sender.sendMessage(pearls.restorePearls(pearlman, args[0]));
+    	}else{
+    		sender.sendMessage("Restoring from most recent record...");
+    		sender.sendMessage(pearls.restorePearls(pearlman, null));
+    	}
+    	return true;
 	}
 
     private boolean feedCmd(CommandSender sender, String args[], boolean any) {
